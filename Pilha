@@ -1,0 +1,41 @@
+Program Pilha ;
+type ponteiroNo = ^TipoNo ;
+		 TipoNo = record
+									dado : integer;
+									proximo : PonteiroNo;
+							End;
+var 
+		PilhaInicio: PonteiroNo;
+		Pilha1: PonteiroNo;
+		resposta : char;
+
+Begin
+	PilhaInicio := nil;
+	
+	repeat
+		new(Pilha1);
+		write ('Informe um inteiro para adicionar na Pilha: ');
+		readln(Pilha1^.dado);
+	  Pilha1^.proximo := PilhaInicio;
+	  PilhaInicio := Pilha1;
+	  write ('Adicionar mais dados (s/n) ?');
+	  readln(resposta);
+	  resposta:= upcase(resposta);
+	Until resposta = 'N';
+	
+	Pilha1 := PilhaInicio;
+	writeln('Agora vou desenpilhar...') ;
+	while (Pilha1 <> nil ) do
+	Begin
+  		writeln('Tirei da pilha => ',Pilha1^.dado) ;
+			Pilha1 := Pilha1^.proximo;
+	End;
+	
+	while (PilhaInicio <> nil) do
+	Begin
+			Pilha1 := PilhaInicio;
+			PilhaInicio := PilhaInicio^.proximo;
+			dispose(Pilha1);
+	End;
+   readln;  	
+End.
